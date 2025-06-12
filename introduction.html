@@ -18,30 +18,76 @@
         <nav>
             <ul>
                 <li><a href="index.html">首頁</a></li>
-                <li><a href="introduction.html" class="active">＿＿＿介紹</a></li>
-                <li><a href="types.html">＿＿＿種類說明</a></li>
-                <li><a href="applications.html">＿＿＿應用舉例</a></li>
-                <li><a href="test1.html">＿＿＿題目 1</a></li>
-                <li><a href="write-up1.html">＿＿＿講解 1</a></li>
-                <li><a href="test2.html">＿＿＿題目 2</a></li>
-                <li><a href="write-up2.html">＿＿＿講解 2</a></li>
+                <li><a href="introduction.html" class="active">Buffer Overflow 介紹</a></li>
+                <li><a href="types.html">Buffer Overflow 種類說明</a></li>
+                <li><a href="applications.html">Buffer Overflow 應用舉例</a></li>
+                <li><a href="test1.html">Buffer Overflow 題目 1</a></li>
+                <li><a href="write-up1.html">Buffer Overflow 講解 1</a></li>
+                <li><a href="test2.html">Buffer Overflow 題目 2</a></li>
+                <li><a href="write-up2.html">Buffer Overflow 講解 2</a></li>
             </ul>
         </nav>
 
         <main>
-            <h2>簡報內容區塊</h2>
-            <p>
-                您可以在這裡放入您的簡報內容。這是一個範例段落，您可以根據您的需求新增更多文字、圖片、圖表或任何其他 HTML 元素。
-            </p>
-            <p>
-                這個區塊的內容會隨著您點擊左側側邊欄的分頁而改變（這需要 JavaScript 實現，此範本僅提供基礎 HTML 結構）。
-            </p>
-            </main>
+            <h2>Buffer Overflow 介紹</h2>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate ea, inventore vel culpa ullam cumque unde libero at dolores sequi laboriosam itaque! Perferendis, provident id omnis adipisci necessitatibus consectetur temporibus.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate ea, inventore vel culpa ullam cumque unde libero at dolores sequi laboriosam itaque! Perferendis, provident id omnis adipisci necessitatibus consectetur temporibus.</p>
+            <div class="tabs-container"><!--標籤-->
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab-id="tab1">
+                        Tab
+                    </button>
+                    <button class="tab-button" data-tab-id="tab2">
+                        Tab
+                    </button>
+                </div>
+
+                <div id="tab1-content" class="tab-content active" style="padding-bottom: 50px;"><!--分頁一-->
+                    <h3>Title</h3>
+                    <img src="images/SQL_introduction.png" alt="None" style="width: 80%; margin-top: -80px; margin-bottom: -60px; transform: translateX(15%);">
+                    <p>Lorem ipsum dolor sit amet <strong>consectetur</strong> adipisicing elit. Veritatis consequuntur harum laudantium provident <strong>tempora corrupti</strong> reprehenderit eaque facilis eius odit. Velit voluptatibus voluptas dolorem tempore sapiente. Laboriosam fugit quas ipsa.</p>
+                </div>
+
+                <div id="tab2-content" class="tab-content" style="padding-bottom: 50px;"><!--分頁二-->
+                    <h3>Title</h3>
+                    <img src="images/SQL_introduction.png" alt="None" style="width: 80%; margin-top: -80px; margin-bottom: -60px; transform: translateX(15%);">
+                    <p>Lorem ipsum dolor sit amet <strong>consectetur</strong> adipisicing elit. Veritatis consequuntur harum laudantium provident <strong>tempora corrupti</strong> reprehenderit eaque facilis eius odit. Velit voluptatibus voluptas dolorem tempore sapiente. Laboriosam fugit quas ipsa.</p>
+                    <ul style="list-style-type:disc;">
+                        <li>Lorem ipsum</li>
+                        <li>dolor sit</li>
+                        <li>amet consectetur</li>
+                        <li>adipisicing elit</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
     </div>
 
     <footer>
         <p>Copyright©毛宇禾、賴永來、曾緯淳、李欣安</p>
         <p>臺北市數位實驗高級中等學校官網：<a class="footer_link" href="https://tschool.tp.edu.tw/">https://tschool.tp.edu.tw/</a></p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    button.classList.add('active');
+
+                    const tabId = button.dataset.tabId;
+                    const targetContent = document.getElementById(`${tabId}-content`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -7,6 +7,45 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
     <title>題目1-Buffer Overflow 教學素材</title>
+    <style>
+        /* 新增：用於外部連結方框的樣式 */
+        .external-link-section {
+            text-align: center; /* 讓內部的按鈕和文字置中 */
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 30px;
+            background-color: #f0f8ff; /* 淺藍色背景 */
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px; /* 限制方框最大寬度 */
+            margin-left: auto; /* 讓方框本身置中 */
+            margin-right: auto; /* 讓方框本身置中 */
+        }
+
+        .external-link-section p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .ctf-link-button {
+            display: inline-block; /* 讓按鈕可以設定內外邊距，同時能被 text-align 置中 */
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.5em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .ctf-link-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* 滑鼠移上時輕微上浮效果 */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,25 +57,29 @@
         <nav>
             <ul>
                 <li><a href="index.html">首頁</a></li>
-                <li><a href="introduction.html">＿＿＿介紹</a></li>
-                <li><a href="types.html">＿＿＿種類說明</a></li>
-                <li><a href="applications.html">＿＿＿應用舉例</a></li>
-                <li><a href="test1.html" class="active">＿＿＿題目 1</a></li>
-                <li><a href="write-up1.html">＿＿＿講解 1</a></li>
-                <li><a href="test2.html">＿＿＿題目 2</a></li>
-                <li><a href="write-up2.html">＿＿＿講解 2</a></li>
+                <li><a href="introduction.html">Buffer Overflow 介紹</a></li>
+                <li><a href="types.html">Buffer Overflow 種類說明</a></li>
+                <li><a href="applications.html">Buffer Overflow 應用舉例</a></li>
+                <li><a href="test1.html" class="active">Buffer Overflow 題目 1</a></li>
+                <li><a href="write-up1.html">Buffer Overflow 講解 1</a></li>
+                <li><a href="test2.html">Buffer Overflow 題目 2</a></li>
+                <li><a href="write-up2.html">Buffer Overflow 講解 2</a></li>
             </ul>
         </nav>
 
-        <main>
-            <h2>簡報內容區塊</h2>
-            <p>
-                您可以在這裡放入您的簡報內容。這是一個範例段落，您可以根據您的需求新增更多文字、圖片、圖表或任何其他 HTML 元素。
-            </p>
-            <p>
-                這個區塊的內容會隨著您點擊左側側邊欄的分頁而改變（這需要 JavaScript 實現，此範本僅提供基礎 HTML 結構）。
-            </p>
-            </main>
+        <main class="noto">
+            <h2>題目 1</h2>
+
+            <div class="external-link-section">
+                <p>準備好挑戰了嗎？<br>點擊下方按鈕，前往 CTF 練習平台開始解題！</p>
+                <a href="https://example.com/ctf-challenge" target="_blank" class="ctf-link-button">
+                    前往 CTF 挑戰！
+                </a>
+                <p style="font-size: 0.9em; color: #666; margin-top: 15px;">（這是一個外部網站連結，將在新分頁開啟）</p>
+            </div>
+
+            <p>完成挑戰後，別忘了回來查看講解喔！</p>
+        </main>
     </div>
 
     <footer>
