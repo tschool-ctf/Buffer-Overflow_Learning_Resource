@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buffer Overflow 教學素材包</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <!-- Google Fonts: Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- 自訂 CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 頁首區塊 -->
+    <header>
+        <div class="header-title">Buffer Overflow 教學素材包</div>
+        <div class="header-info">
+            <span>臺北市數位實驗高中學生製作的教學素材！</span>
+            <a href="https://github.com/tschool-ctf/Buffer-Overflow_Learning_Resource" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- 網頁內容區塊 -->
+    <div class="container">
+        <!-- 導航欄區塊 -->
+        <nav id="main-nav">
+            <ul>
+                <li data-target="home-page"><i class="fas fa-home"></i> 首頁</li>
+                <li data-target="intro-page"><i class="fas fa-book-open"></i> Buffer Overflow 介紹</li>
+                <li data-target="types-page"><i class="fas fa-sitemap"></i> Buffer Overflow 種類</li>
+                <li data-target="usage-page"><i class="fas fa-bullseye"></i> Buffer Overflow 應用</li>
+                <li data-target="history-page"><i class="fas fa-landmark"></i> Buffer Overflow 歷史</li>
+                <li data-target="ctf-page"><i class="fas fa-gamepad"></i> Buffer Overflow 題目</li>
+                <li data-target="writeup-page"><i class="fas fa-pen-to-square"></i> Buffer Overflow 題解</li>
+                <li data-target="reading-page"><i class="fas fa-book-reader"></i> 延伸閱讀</li>
+            </ul>
+        </nav>
+
+        <!-- 主要內容區塊 -->
+        <main>
+            <!-- 首頁 -->
+            <div id="home-page" class="page-content">
+                <div class="home-content-wrapper">
+                    <div class="home-video-container">
+                         <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PL2y_TC22rrf4qc_yE_9n95f6sV3p8OhxP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h1>Buffer Overflow</h1>
+                    <p>歡迎來到 Buffer Overflow 教學素材包！這是一份專為初學者設計的學習資源，旨在幫助您理解資訊安全領域中最基礎也最重要的一個漏洞類型。</p>
+                    <p>在本教學包中，我們將會用簡單明瞭的方式，帶您一步步探索：</p>
+                    
+                    <!-- 圖像化提示：此處應有一張流程圖或心智圖，說明整個教學包的架構 -->
+                    <img src="images/Session.png" alt="教學包的架構">
+
+                    <p>無論您是國中生、高中生，或是任何對資訊安全抱持好奇心的朋友，這份教材都能讓您專注於概念的理解，建立扎實的基礎知識。讓我們一起開始這趟學習之旅吧！</p>
+                    
+                    <button id="start-learning-btn" class="main-btn">開始學習</button>
+                </div>
+            </div>
+
+            <!-- 主題簡介 -->
+            <div id="intro-page" class="page-content">
+                <h2>Buffer Overflow 介紹</h2>
+                <div class="inner-tabs">
+                    <button class="inner-tab-btn active" data-tab="intro-1">什麼是緩衝區(Buffer)？</button>
+                    <button class="inner-tab-btn" data-tab="intro-2">什麼是緩衝區溢位？</button>
+                </div>
+                <div class="inner-tab-content-wrapper">
+                    <div id="intro-1" class="inner-tab-content active">
+                        <h3>什麼是緩衝區 (Buffer)？</h3>
+                        <p>在電腦科學中，<strong class="keyword" title="一塊用來暫時儲存資料的記憶體區域">緩衝區 (Buffer)</strong> 是一塊連續的記憶體區域，用於在資料從一個地方傳輸到另一個地方時，暫時存放這些資料。您可以把它想像成一個固定大小的容器或箱子。</p>
+                        <p>程式在處理資料時（例如：讀取使用者輸入、從檔案讀取內容），會先申請一塊固定大小的記憶體空間（也就是緩衝區），然後將資料放入其中等待後續處理。</p>
+                        <!-- 圖像化提示：一個標示 "Buffer" 的空盒子陣列 -->
+                        <img src="images/buffer.png" alt="緩衝區概念圖">
+                    </div>
+                    <div id="intro-2" class="inner-tab-content">
+                        <h3>什麼是緩衝區溢位 (Buffer Overflow)？</h3>
+                        <p>當一個程式試圖將資料寫入一個緩衝區時，如果寫入的資料量<strong class="emphasis">超過了該緩衝區的容量</strong>，多餘的資料就會「溢出」，並覆蓋到相鄰的記憶體區域。這個現象就稱為<strong class="keyword" title="寫入緩衝區的資料量超出其邊界，導致覆蓋相鄰記憶體空間的現象">緩衝區溢位 (Buffer Overflow)</strong>。</p>
+                        <p>這種覆蓋行為是危險的，因為被覆蓋的相鄰記憶體區域可能存放著重要的資訊，例如：</p>
+                        <ul>
+                            <li>程式的其他變數值</li>
+                            <li>程式的執行流程控制資訊（如返回位址）</li>
+                        </ul>
+                        <p>一旦這些重要資訊被惡意竄改，就可能導致程式崩潰，或更糟的是，被攻擊者利用來執行任意程式碼。</p>
+                        
+                        <img src="images/buffer-overflow.png" alt="緩衝區溢位概念圖">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主題種類介紹 -->
+            <div id="types-page" class="page-content">
+                <h2>Buffer Overflow 種類</h2>
+                <div class="inner-tabs">
+                    <button class="inner-tab-btn active" data-tab="type-1">堆疊溢位 (Stack Overflow)</button>
+                    <button class="inner-tab-btn" data-tab="type-2">堆積溢位 (Heap Overflow)</button>
+                </div>
+                <div class="inner-tab-content-wrapper">
+                    <div id="type-1" class="inner-tab-content active">
+                        <h3>堆疊溢位 (Stack-based Buffer Overflow)</h3>
+                        <p>這是最常見的緩衝區溢位類型。程式的函式呼叫、區域變數等資訊通常儲存在一個稱為「堆疊 (Stack)」的記憶體區域。堆疊的運作方式是「後進先出 (Last-In, First-Out)」。</p>
+                        <p>當一個函式中的緩衝區發生溢位時，溢出的資料很容易覆蓋到儲存在堆疊上的<strong class="emphasis">返回位址 (Return Address)</strong>。返回位址是 CPU 用來記錄函式執行完畢後應該跳回哪裡繼續執行的指標。如果攻擊者能精確地將返回位址修改成一段惡意程式碼的起始位址，那麼當函式結束時，程式就會跳去執行攻擊者的程式碼，進而取得系統控制權。</p>
+                        
+                        <img src="images/stack.png" alt="堆疊溢位 (Stack-based Buffer Overflow)概念圖">
+                    </div>
+                    <div id="type-2" class="inner-tab-content">
+                        <h3>堆積溢位 (Heap-based Buffer Overflow)</h3>
+                        <p>「堆積 (Heap)」是另一塊記憶體區域，主要用於儲存動態配置的資料，也就是程式在執行期間才決定要建立的物件或資料結構，其大小和生命週期不是在編譯時就固定的。</p>
+                        <p>與堆疊不同，堆積的結構比較複雜，溢位發生時不會直接覆蓋返回位址。然而，堆積溢位仍然非常危險。攻擊者可以利用它來<strong class="emphasis">覆蓋相鄰的資料物件、破壞程式內部管理記憶體的資料結構（如指標）</strong>，或是觸發其他更複雜的攻擊手法，最終也可能達到執行任意程式碼的目的。堆積溢位的利用通常比堆疊溢位更困難，但防禦也相對更複雜。</p>
+                        
+                        <img src="images/heap.png" alt="堆積溢位 (Heap-based Buffer Overflow)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主題應用介紹 -->
+            <div id="usage-page" class="page-content">
+                <h2>Buffer Overflow 應用舉例</h2>
+                <div class="inner-tabs">
+                    <button class="inner-tab-btn active" data-tab="usage-1">阻斷服務攻擊 (DoS)</button>
+                    <button class="inner-tab-btn" data-tab="usage-2">任意程式碼執行</button>
+                </div>
+                <div class="inner-tab-content-wrapper">
+                    <div id="usage-1" class="inner-tab-content active">
+                        <h3>阻斷服務攻擊 (Denial of Service, DoS)</h3>
+                        <p>這是利用緩衝區溢位相對簡單的攻擊方式。攻擊者的目的不是為了控制系統，而是<strong class="emphasis">讓目標程式或系統崩潰</strong>，無法提供正常服務。</p>
+                        <p>當緩衝區溢位發生時，溢出的資料會破壞程式的記憶體狀態，例如覆蓋了關鍵變數或指標。這常常會導致程式在後續執行時遇到非預期的錯誤（如存取無效的記憶體位址），最終引發作業系統的保護機制，強制終止該程式。如此一來，該程式提供的服務（如網站、遊戲伺服器）就會中斷。</p>
+                        
+                        <img src="images/DoS.png" alt="阻斷服務攻擊 (Denial of Service, DoS)概念圖">
+                    </div>
+                    <div id="usage-2" class="inner-tab-content">
+                        <h3>任意程式碼執行 (Arbitrary Code Execution)</h3>
+                        <p>這是緩衝區溢位最嚴重、最危險的應用。攻擊者的目標是<strong class="emphasis">在受害者的電腦上執行自己準備的惡意程式碼</strong>，通常稱為 Shellcode。</p>
+                        <p>在典型的堆疊溢位攻擊中，攻擊者會構造一個特殊的輸入字串，這個字串包含：</p>
+                        <ol>
+                            <li>一段惡意程式碼（Shellcode）。</li>
+                            <li>大量的填充字元，用來填滿緩衝區。</li>
+                            <li>一個新的返回位址，該位址指向剛剛植入的 Shellcode。</li>
+                        </ol>
+                        <p>當程式將這個惡意字串讀入緩衝區時，溢位發生，返回位址被修改。當函式結束時，程式不會回到正常流程，而是跳到 Shellcode 的位置開始執行。如果成功，攻擊者就能在目標系統上執行任意指令，例如開啟後門、竊取資料或完全控制系統。</p>
+                        
+                        <img src="images/Arbitrary.png" alt="緩衝區概念圖">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主題歷史介紹 -->
+            <div id="history-page" class="page-content">
+                <h2>Buffer Overflow 歷史源流</h2>
+                <p>緩衝區溢位作為一種安全漏洞，其歷史幾乎和電腦網路本身一樣悠久。雖然這個概念早已存在，但直到某個重大事件後，才真正引起全球性的關注。</p>
+                <div class="inner-tabs">
+                    <button class="inner-tab-btn active" data-tab="history-1">早期概念</button>
+                    <button class="inner-tab-btn" data-tab="history-2">莫里斯蠕蟲 (1988)</button>
+                    <button class="inner-tab-btn" data-tab="history-3">後續發展</button>
+                </div>
+                <div class="inner-tab-content-wrapper">
+                    <div id="history-1" class="inner-tab-content active">
+                        <h3>早期概念 (1970s - 1980s)</h3>
+                        <p>在早期的電腦系統中，安全並非首要考量。程式語言（如 C 語言）為了追求執行效率，提供了許多直接操作記憶體的函式（如 `gets()`, `strcpy()`），但<strong class="emphasis">並未內建邊界檢查機制</strong>。這意味著程式設計師必須自行確保輸入的資料不會超出緩衝區的大小，一旦疏忽，就可能產生緩衝區溢位。在當時，這通常被視為程式錯誤 (Bug)，而非可被利用的安全漏洞。</p>
+                    </div>
+                    <div id="history-2" class="inner-tab-content">
+                        <h3>莫里斯蠕蟲 (Morris Worm, 1988)</h3>
+                        <p>1988年11月2日，康乃爾大學研究生 Robert Tappan Morris 釋放了一隻實驗性的「蠕蟲」程式到當時規模還很小的網際網路上。這隻蠕蟲的傳播方式之一，就是利用了 Unix 系統 `fingerd` 服務中的一個<strong class="emphasis">緩衝區溢位漏洞</strong>。</p>
+                        <p>Morris 精心构造了一個超長的查詢請求，觸發了 `fingerd` 服務的緩衝區溢位，進而覆蓋堆疊上的返回位址，讓伺服器執行蠕蟲自帶的惡意程式碼，從而感染該伺服器並繼續尋找下一個目標。雖然 Morris 的本意並非破壞，但程式的設計缺陷導致蠕蟲失控地快速複製，造成當時約 10% 的網際網路主機癱瘓。</p>
+                        <p><strong class="keyword" title="史上第一個透過網際網路大規模傳播的電腦蠕蟲">莫里斯蠕蟲</strong>事件是資安史上的里程碑，它首次向世界展示了緩衝區溢位漏洞可以被遠端利用，造成大規模的危害。從此，緩衝區溢位從一個理論上的程式錯誤，變成了駭客與資安專家攻防的焦點。</p>
+                    </div>
+                    <div id="history-3" class="inner-tab-content">
+                        <h3>後續發展 (1990s - 至今)</h3>
+                        <p>在莫里斯蠕蟲之後，關於緩衝區溢位的研究和利用技術層出不窮。1996年，資安雜誌 Phrack 發布了一篇經典文章《Smashing The Stack For Fun And Profit》，詳細介紹了利用堆疊溢位的技術細節，使得這類攻擊更加普及。</p>
+                        <p>為了應對，作業系統和編譯器也發展出多種防禦機制，例如：</p>
+                        <ul>
+                            <li><strong>Stack Canaries / Stack Cookies：</strong>在返回位址前放置一個隨機的特殊數值 (金絲雀)，函式返回前檢查該數值是否被修改，若被修改則代表發生溢位，立即中止程式。</li>
+                            <li><strong>ASLR (Address Space Layout Randomization)：</strong>位址空間配置隨機化，讓程式每次載入記憶體時，其堆疊、堆積、函式庫的位址都是隨機的，使攻擊者難以猜測返回位址。</li>
+                            <li><strong>NX bit / DEP (Data Execution Prevention)：</strong>將記憶體區域標記為「不可執行」，防止攻擊者在堆疊等資料區直接執行植入的 Shellcode。</li>
+                        </ul>
+                        <p>至今，緩衝區溢位攻防戰仍在持續，它已成為電腦科學教育和資安領域不可或缺的基礎課題。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主題CTF題目 -->
+            <div id="ctf-page" class="page-content">
+                <div class="ctf-challenge-box">
+                    <p class="ctf-title">準備好挑戰了嗎？</p>
+                    <p class="ctf-subtitle">在你的終端機（或 CMD）輸入以下指令，</p>
+                    <p class="ctf-subtitle">前往 CTF 練習平台開始解題！</p>
+                    <div class="ctf-command-box">
+                        <code class="ctf-command">docker login</code>
+                        <code class="ctf-command">docker pull ry4nl41/buffer-overflow</code>
+                        <code class="ctf-command">docker run -it --rm ry4nl41/buffer-overflow</code>
+                    </div>
+                    <p class="ctf-desc">這是一串 Docker 指令，輸入後會下載並執行一個包含挑戰的網頁伺服器映像檔，接著你就可以在瀏覽器中開啟挑戰了！</p>
+                </div>
+            </div>
+
+            <!-- 主題CTF題目講解 -->
+            <div id="writeup-page" class="page-content">
+                <h2>Buffer Overflow 題目講解</h2>
+                <div class="writeup-content">
+                    <!-- 內容將由JS動態載入 -->
+                </div>
+                <div class="step-navigation">
+                    <!-- 按鈕將由JS動態生成 -->
+                </div>
+            </div>
+
+            <!-- 延伸閱讀 -->
+            <div id="reading-page" class="page-content">
+                <h2>延伸閱讀</h2>
+                <div class="reading-grid">
+                    <a href="https://owasp.org/www-community/attacks/Buffer_overflow" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>OWASP - Buffer Overflow</h3>
+                        <p>由開放式 Web 應用程式安全計畫 (OWASP) 提供的緩衝區溢位權威解釋，內容較為深入。</p>
+                    </a>
+                    <a href="http://insecure.org/stf/smashstack.html" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>Smashing The Stack For Fun And Profit</h3>
+                        <p>資安史上的經典文章，詳細闡述了堆疊溢位的原理與利用技術，是許多駭客的啟蒙讀物。</p>
+                    </a>
+                    <a href="https://www.geeksforgeeks.org/buffer-overflow-attack-with-example/" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>GeeksforGeeks - Buffer Overflow</h3>
+                        <p>提供帶有 C 語言程式碼範例的緩衝區溢位教學，幫助理解程式層面的漏洞成因。</p>
+                    </a>
+                     <a href="https://www.youtube.com/watch?v=1S0aBV-Waeo" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>LiveOverflow - Binary Hacking</h3>
+                        <p>知名的資安 YouTuber，他的影片以視覺化和實作方式講解二進位安全，包含許多緩衝區溢位的實戰。</p>
+                    </a>
+                    <a href="https://ctf101.org/" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>CTF101</h3>
+                        <p>一個為 CTF 新手設計的學習網站，涵蓋了包含 Buffer Overflow 在內的多種資安主題。</p>
+                    </a>
+                     <a href="https://www.tsoc.tw/" target="_blank" rel="noopener noreferrer" class="reading-card">
+                        <h3>臺灣好厲駭</h3>
+                        <p>由臺灣資安社群舉辦的競賽與活動平台，可以找到許多相關的學習資源與社群討論。</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 換頁按鈕 -->
+            <div class="page-nav-buttons">
+                <button id="prev-page-btn" class="page-nav-btn" title="上一頁"><i class="material-icons">arrow_upward</i></button>
+                <button id="next-page-btn" class="page-nav-btn" title="下一頁"><i class="material-icons">arrow_downward</i></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- 頁尾區塊 -->
+    <footer>
+        <p>Copyright© 毛宇禾、賴永來、曾緯淳、李欣安</p>
+        <p>
+            臺北市數位實驗高級中等學校官網：
+            <a href="https://tschool.tp.edu.tw/" target="_blank" rel="noopener noreferrer">https://tschool.tp.edu.tw/</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
