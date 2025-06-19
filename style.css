@@ -63,7 +63,7 @@ pre code {
 .container {
     display: flex;
     max-width: 1400px;
-    margin: 2rem auto;
+    margin: 2rem 2rem;
     gap: 2rem;
 }
 
@@ -94,7 +94,7 @@ footer a:hover { color: var(--text-light); }
 
 /* --- 導航欄 (nav) --- */
 #main-nav {
-    width: 23%;
+    width: 25%;
     background-color: var(--primary-pale);
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
